@@ -1,0 +1,72 @@
+<template>
+  <style>
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    @font-face { font-family: "Marker"; src: url("assets/fonts/PermanentMarker-Regular.ttf"); }
+    @font-face { font-family: "OldStd"; src: url("assets/fonts/OldStandard-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #2c2e31; }
+    #tpl-cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+    #tpl-wall { position: absolute; inset: -80px -1000px; background: url("assets/tex/concrete.png") center / cover; }
+    #tpl-shade { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 65% at 42% 45%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%); }
+    #tpl-date { position: absolute; left: 470px; top: 250px; width: 700px; text-align: center; }
+    #tpl-month { white-space: nowrap; font-family: "Anton"; font-size: 300px; line-height: 0.9; color: #c8102e; letter-spacing: -2px; text-shadow: 0 5px 0 rgba(20,8,8,0.55), 0 0 2px rgba(20,8,8,0.6); }
+    #tpl-month span { display: inline-block; }
+    #tpl-yearbar { position: relative; display: inline-block; margin-top: 10px; padding: 4px 34px 0; }
+    #tpl-barfill { position: absolute; inset: 0; background: #c9d400; transform-origin: 0 50%; }
+    #tpl-year { position: relative; font-family: "Anton"; font-size: 120px; line-height: 1.05; color: #161616; letter-spacing: 2px; }
+    .tpl-pol { position: absolute; background: #f3efe6; padding: 18px 18px 64px; box-shadow: 0 22px 40px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.4); }
+    .tpl-pol img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .tpl-dim { position: absolute; left: 18px; top: 18px; right: 18px; bottom: 64px; background: #000; }
+    .tpl-pin { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff6b6b, #a30d1f 60%, #5a0610); box-shadow: 3px 6px 6px rgba(0,0,0,0.5); left: 50%; top: -6px; margin-left: -15px; }
+    .tpl-cap { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; font-family: "Marker"; font-size: 34px; color: #1b1b1b; }
+    #tpl-polA { left: 70px; top: 560px; width: 480px; height: 400px; }
+    #tpl-polB { left: 1390px; top: 175px; width: 390px; height: 540px; }
+    #tpl-tag { position: absolute; left: 1410px; top: 740px; font-family: "Marker"; font-size: 46px; color: #e9e4d8; white-space: nowrap; }
+    #tpl-letter { position: absolute; left: 520px; top: 640px; width: 600px; height: 780px; background: url("assets/tex/paper.png") center / cover; box-shadow: 0 30px 60px rgba(0,0,0,0.6); padding: 60px 56px; transform-origin: 50% 30%; }
+    #tpl-letter p { font-family: "OldStd"; font-size: 22px; line-height: 1.5; color: #2a2620; margin-bottom: 16px; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="tpl-cam">
+      <div id="tpl-wall"></div>
+      <div id="tpl-polA" class="tpl-pol"><img src="assets/photos/ph_event.jpg" alt="" /><div class="tpl-pin"></div><div class="tpl-cap">EVENT 2026</div></div>
+      <div id="tpl-polB" class="tpl-pol"><img src="assets/photos/ph_portrait.jpg" alt="" /><div id="tpl-dimB" class="tpl-dim"></div><div class="tpl-pin"></div><div class="tpl-cap">THE ROLE</div></div>
+      <div id="tpl-tag">Subject Name</div>
+      <div id="tpl-date">
+        <div id="tpl-month"><span>M</span><span>A</span><span>R</span><span>&nbsp;</span><span>3</span></div>
+        <div id="tpl-yearbar"><div id="tpl-barfill"></div><div id="tpl-year">2026</div></div>
+      </div>
+      <div id="tpl-letter" data-layout-ignore>
+        <p>Subject: The document's title</p>
+        <p>The first line of the document, as published.</p>
+        <p>The paragraph the story turns on goes here, word for word, exactly as its author published it, nothing added.</p>
+        <p>Then the next paragraph of the same document, in its own words, copied exactly.</p>
+      </div>
+      <div id="tpl-shade"></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // camera: slow pull back from the wall, then push into the letter
+    tl.fromTo("#tpl-cam", { scale: 1.12, x: 50, y: 10 }, { scale: 1.0, x: 0, y: 0, duration: 5.4, ease: "power1.inOut" }, 0);
+    tl.fromTo("#tpl-wall", { x: 0 }, { x: -30, duration: 7.3, ease: "none" }, 0);
+    // "<the date>" 1.11 — letters drop in one by one
+    tl.fromTo("#tpl-month span", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out", stagger: 0.06 }, 0.9);
+    // "<the year>" 2.1 — lime bar wipes on, year lands
+    tl.fromTo("#tpl-barfill", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 2.0);
+    tl.fromTo("#tpl-year", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.12);
+    // dimmed portrait waits on the wall
+    tl.fromTo("#tpl-dimB", { opacity: 0.55 }, { opacity: 0.55, duration: 0.01 }, 0);
+    // "<who they are>" 3.63 — flash on the portrait, keynote photo pinned
+    tl.to("#tpl-dimB", { opacity: 0, duration: 0.12, ease: "none" }, 3.62);
+    tl.fromTo("#tpl-polA", { opacity: 0, x: -90, rotation: -9 }, { opacity: 1, x: 0, rotation: -6, duration: 0.9, ease: "power2.out" }, 4.0);
+    tl.fromTo("#tpl-polB", { rotation: 5 }, { rotation: 5, duration: 0.01 }, 0);
+    tl.fromTo("#tpl-tag", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power2.out" }, 4.0);
+    // "<the document arrives>" 5.52 — the letter slides up onto the wall
+    tl.fromTo("#tpl-letter", { y: 520, rotation: 9 }, { y: 0, rotation: -2, duration: 0.7, ease: "expo.out" }, 5.4);
+    tl.to("#tpl-letter", { y: -330, duration: 1.2, ease: "power2.inOut" }, 6.1);
+    // object becomes the world: camera dives into the page
+    tl.to("#tpl-cam", { scale: 3.4, x: 0, y: 260, duration: 1.15, ease: "power3.in" }, 6.15);
+    tl.to("#tpl-shade", { opacity: 0, duration: 0.6, ease: "power2.in" }, 6.5);
+    tl.to("#root", { opacity: 0, duration: 0.18, ease: "power1.in" }, 7.1);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

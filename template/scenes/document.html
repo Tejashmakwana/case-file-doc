@@ -1,0 +1,70 @@
+<template>
+  <style>
+    @font-face { font-family: "OldStd"; src: url("assets/fonts/OldStandard-Regular.ttf"); }
+    @font-face { font-family: "OldStd"; font-weight: 700; src: url("assets/fonts/OldStandard-Bold.ttf"); }
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #cbbd9f; }
+    #tpl-stage { position: absolute; inset: 0; perspective: 1900px; perspective-origin: 50% 40%; }
+    #tpl-paper { position: absolute; left: -40px; top: 0; width: 2000px; height: 1500px; background: url("assets/tex/paper.png") center / cover; transform-origin: 1000px 540px; box-shadow: 0 40px 80px rgba(0,0,0,0.45); }
+    #tpl-text { position: absolute; left: 250px; top: 230px; }
+    #tpl-text .ln { font-family: "OldStd"; font-size: 46px; line-height: 74px; color: #26221c; white-space: nowrap; }
+    #tpl-text .gap { height: 34px; }
+    #tpl-text .subj { font-weight: 700; }
+    .tpl-hl { background-image: linear-gradient(#f2d300, #f2d300); background-repeat: no-repeat; background-position: 0 70%; background-size: 0% 62%; mix-blend-mode: multiply; padding: 0 4px; margin: 0 -4px; }
+    #tpl-ul { position: absolute; left: 0; top: 0; width: 2000px; height: 1500px; pointer-events: none; overflow: visible; }
+    #tpl-dofT, #tpl-dofB { position: absolute; left: 0; width: 1920px; pointer-events: none; -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }
+    #tpl-dofT { top: 0; height: 470px; -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 100%); }
+    #tpl-dofB { top: 640px; height: 440px; -webkit-mask-image: linear-gradient(0deg, #000 0%, #000 40%, transparent 100%); mask-image: linear-gradient(0deg, #000 0%, #000 40%, transparent 100%); }
+    #tpl-tape { position: absolute; left: 120px; bottom: 170px; background: #151412; padding: 14px 26px 10px; }
+    #tpl-tape-in { font-family: "Elite"; font-size: 34px; color: #efe7d6; letter-spacing: 1px; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="tpl-stage">
+      <div id="tpl-paper">
+        <div id="tpl-text">
+          <div class="ln subj">Subject: The document's title</div>
+          <div class="gap"></div>
+          <div class="ln">This is the first line of the document.</div>
+          <div class="gap"></div>
+          <div class="ln"><span id="tpl-hl1" class="tpl-hl">This is the first quoted line.</span> The text runs on to</div>
+          <div class="ln">the next. <span id="tpl-hl2" class="tpl-hl">This is the second quoted line.</span> More follows.</div>
+          <div class="gap"></div>
+          <div class="ln" data-layout-ignore>Every line below is texture: the camera never reads it, but</div>
+          <div class="ln" data-layout-ignore>it is still the real document, copied exactly as published.</div>
+          <div class="ln" data-layout-ignore>Replace these lines with the rest of the document, keeping the</div>
+          <div class="ln" data-layout-ignore>line breaks close to the original so the page reads like the</div>
+          <div class="ln" data-layout-ignore>real thing.</div>
+          <div class="gap"></div>
+          <div class="ln" data-layout-ignore>Nothing on this page is invented. When the source is an image,</div>
+          <div class="ln" data-layout-ignore>show the image itself instead (the consequence template does).</div>
+          <div class="ln" data-layout-ignore>Keep the source tape below.</div>
+        </div>
+        <svg id="tpl-ul" viewBox="0 0 2000 1500">
+          <path id="tpl-arrow" d="M 110 450 C 150 452, 190 455, 228 462 M 196 438 L 230 462 L 192 482" fill="none" stroke="#c8102e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+          <path id="tpl-under" d="M 452 596 C 620 590, 800 600, 960 592 S 1100 596, 1160 590" fill="none" stroke="#c8102e" stroke-width="8" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        </svg>
+      </div>
+    </div>
+    <div id="tpl-dofT" data-layout-ignore></div>
+    <div id="tpl-dofB" data-layout-ignore></div>
+    <div id="tpl-tape"><div id="tpl-tape-in">SOURCE · MAR 3, 2026</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const P = "#tpl-paper";
+    // camera on the page (3D tilt, like a rostrum dolly across a document)
+    tl.fromTo(P, { rotationX: 24, rotationZ: -4, scale: 1.55, x: 420, y: 190 }, { rotationX: 20, rotationZ: -3, scale: 1.7, x: 760, y: 70, duration: 0.9, ease: "power2.out" }, 0);
+    tl.to(P, { x: 330, y: 60, duration: 2.0, ease: "power1.inOut" }, 0.9);
+    tl.to(P, { x: -40, y: -60, rotationZ: -2, duration: 2.4, ease: "power2.inOut" }, 2.9);
+    // "<first quoted line>" 0.9–2.55
+    tl.fromTo("#tpl-hl1", { backgroundSize: "0% 62%" }, { backgroundSize: "100% 62%", duration: 1.55, ease: "power1.inOut" }, 0.92);
+    tl.to("#tpl-arrow", { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 2.6);
+    // "<second quoted line>" 3.5–5.27
+    tl.to(P, { rotationX: 7, rotationZ: -1.5, scale: 0.9, x: 0, y: -40, duration: 1.15, ease: "power2.inOut" }, 5.3);
+    tl.fromTo("#tpl-hl2", { backgroundSize: "0% 62%" }, { backgroundSize: "100% 62%", duration: 1.6, ease: "power1.inOut" }, 3.5);
+    tl.to("#tpl-under", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 5.0);
+    // source tag
+    tl.fromTo("#tpl-tape", { opacity: 0, x: -60, rotation: -1.5 }, { opacity: 1, x: 0, rotation: -1.5, duration: 0.45, ease: "expo.out" }, 1.0);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

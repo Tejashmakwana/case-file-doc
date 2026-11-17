@@ -1,0 +1,58 @@
+<template>
+  <style>
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #8d8f92 url("assets/tex/concrete.png") center / cover; }
+    #tpl-strip { position: absolute; left: -20px; top: 800px; width: 1960px; height: 300px; background: #ece6d8 url("assets/tex/newsprint.png") center / cover; box-shadow: 0 -8px 24px rgba(0,0,0,0.35); }
+    #tpl-the { position: absolute; left: 660px; top: 268px; font-family: "Anton"; font-size: 64px; line-height: 1; color: #141210; letter-spacing: 10px; }
+    #tpl-name { position: absolute; left: 650px; top: 336px; font-family: "Anton"; font-size: 210px; line-height: 0.9; color: #141210; letter-spacing: -2px; white-space: nowrap; filter: url(#tpl-rough); }
+    #tpl-affwrap { position: absolute; left: 640px; top: 540px; padding: 8px 30px 0 18px; }
+    #tpl-affbar { position: absolute; inset: 0; background: #c8102e; transform-origin: 0 50%; }
+    #tpl-affair { position: relative; font-family: "Anton"; font-size: 190px; line-height: 0.92; color: #f6f1e6; letter-spacing: -1px; white-space: nowrap; filter: url(#tpl-rough); }
+    #tpl-marks { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    #tpl-tag { position: absolute; left: 1420px; top: 500px; background: #141210; padding: 10px 22px 6px; }
+    #tpl-tag div { font-family: "Elite"; font-size: 34px; color: #f2ecdf; white-space: nowrap; }
+    #tpl-date { position: absolute; left: 1424px; top: 566px; font-family: "Elite"; font-size: 30px; color: #141210; white-space: nowrap; }
+    #tpl-bar { position: absolute; left: 1424px; top: 760px; width: 260px; height: 12px; background: #e8701a; transform-origin: 0 50%; }
+    #tpl-src { position: absolute; left: 120px; top: 842px; font-family: "Elite"; font-size: 28px; line-height: 1.3; color: #3c342d; white-space: nowrap; }
+    #tpl-flash { position: absolute; inset: 0; background: #fff; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <svg width="0" height="0" style="position: absolute">
+      <filter id="tpl-rough"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="5" /><feDisplacementMap in="SourceGraphic" scale="8" /></filter>
+      <filter id="tpl-pen"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.6" numOctaves="2" seed="8" /><feDisplacementMap in="SourceGraphic" scale="6" /></filter>
+    </svg>
+    <div id="tpl-strip"></div>
+    <div id="tpl-the">THE</div>
+    <div id="tpl-name">NAME</div>
+    <div id="tpl-affwrap"><div id="tpl-affbar"></div><div id="tpl-affair">FILES</div></div>
+    <svg id="tpl-marks" viewBox="0 0 1920 1080">
+      <path id="tpl-circle" d="M 990 172 C 670 168, 500 320, 510 520 C 520 740, 720 830, 990 822 C 1260 812, 1400 690, 1394 500 C 1388 300, 1240 180, 950 190" fill="none" stroke="#141210" stroke-width="9" stroke-linecap="round" filter="url(#tpl-pen)" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+      <path id="tpl-arrow" d="M 140 410 C 250 370, 400 420, 492 490 M 450 462 L 496 492 L 444 508" fill="none" stroke="#141210" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+    </svg>
+    <div id="tpl-tag"><div>WHAT WE KNOW</div></div>
+    <div id="tpl-date">MARCH 2026</div>
+    <div id="tpl-bar"></div>
+    <div id="tpl-src">Sources: Outlet One · Outlet Two · Outlet Three · Broadcaster<br />The subject's own document · Footage: owner of each clip</div>
+    <div id="tpl-flash"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#tpl-flash", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    // the boom at 0.48 — flash, the name slams
+    tl.fromTo("#tpl-name", { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+    tl.fromTo("#tpl-the", { opacity: 0 }, { opacity: 1, duration: 0.1 }, 0.5);
+    tl.fromTo("#tpl-affbar", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, 0.6);
+    tl.fromTo("#tpl-affair", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 0.8);
+    // circled like a case file (ref3 end card)
+    tl.to("#tpl-circle", { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 1.0);
+    tl.to("#tpl-arrow", { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 1.45);
+    tl.fromTo("#tpl-tag", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 1.58);
+    tl.fromTo("#tpl-tag div", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "steps(12)" }, 1.6);
+    tl.fromTo("#tpl-date", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.1);
+    tl.fromTo("#tpl-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 2.2);
+    tl.fromTo("#tpl-strip", { y: 0 }, { y: 0, duration: 0.01 }, 0);
+    tl.fromTo("#tpl-src", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 1.0);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

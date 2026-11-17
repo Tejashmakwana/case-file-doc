@@ -1,0 +1,97 @@
+<template>
+  <style>
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    @font-face { font-family: "Marker"; src: url("assets/fonts/PermanentMarker-Regular.ttf"); }
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #050403; }
+    #tpl-A { position: absolute; inset: 0; background: url("assets/tex/paper.png") center / cover; }
+    .tpl-type { position: absolute; left: 0; right: 0; text-align: center; font-family: "Elite"; font-size: 56px; line-height: 1.2; color: #1d1a16; white-space: nowrap; }
+    .tpl-type span.inner { display: inline-block; }
+    #tpl-t1 { top: 420px; }
+    #tpl-t2 { top: 500px; }
+    #tpl-uline { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    .tpl-vw { position: absolute; inset: 0; }
+    .tpl-vid { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+    #tpl-C { position: absolute; inset: 0; }
+    #tpl-cam { position: absolute; inset: 0; transform-origin: 900px 470px; }
+    #tpl-cork { position: absolute; left: -200px; top: -200px; width: 2320px; height: 1480px; background: url("assets/tex/cork.png") center / cover; }
+    .tpl-pol { position: absolute; background: #efe9dc; padding: 16px 16px 70px; box-shadow: 0 14px 26px rgba(0,0,0,0.55); }
+    .tpl-pol img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .tpl-cap { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-family: "Marker"; font-size: 34px; color: #1b1b1b; white-space: nowrap; }
+    #tpl-subject { left: 690px; top: 200px; width: 420px; height: 520px; }
+    #tpl-person2 { left: 1330px; top: 140px; width: 330px; height: 410px; }
+    #tpl-event { left: 210px; top: 600px; width: 340px; height: 400px; }
+    #tpl-clipping { position: absolute; left: 120px; top: 120px; width: 460px; height: 307px; box-shadow: 0 12px 22px rgba(0,0,0,0.5); }
+    #tpl-clipping img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    #tpl-card { position: absolute; left: 1300px; top: 680px; width: 470px; height: 290px; background: #f4efe2; box-shadow: 0 14px 26px rgba(0,0,0,0.55); padding: 26px 30px; }
+    #tpl-card .t1 { font-family: "Anton"; font-size: 60px; line-height: 1; color: #141210; }
+    #tpl-card .t2 { font-family: "Elite"; font-size: 30px; line-height: 40px; color: #1d1a16; white-space: nowrap; }
+    #tpl-strings { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    .tpl-pin { position: absolute; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff6b6b, #a30d1f 60%, #5a0610); box-shadow: 3px 6px 6px rgba(0,0,0,0.55); }
+    #tpl-q { position: absolute; left: 560px; top: 742px; width: 680px; text-align: center; font-family: "Marker"; font-size: 64px; line-height: 1.05; color: #f3ead6; white-space: nowrap; text-shadow: 0 3px 8px rgba(0,0,0,0.6); }
+    #tpl-marks { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    #tpl-dark { position: absolute; left: -400px; top: -400px; width: 2720px; height: 1880px; --sx: 1300px; --sy: 860px; --sr: 520px; background: radial-gradient(circle var(--sr) at var(--sx) var(--sy), rgba(8,6,3,0) 0%, rgba(8,6,3,0) 72%, rgba(8,6,3,0.94) 100%); }
+    #tpl-black { position: absolute; inset: 0; background: #000; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="tpl-C">
+      <div id="tpl-cam">
+        <div id="tpl-cork"></div>
+        <div id="tpl-clipping"><img src="assets/photos/ph_clipping_sepia.jpg" alt="" /></div>
+        <div id="tpl-event" class="tpl-pol"><img src="assets/photos/ph_event_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>reported photos</div></div>
+        <div id="tpl-person2" class="tpl-pol"><img src="assets/photos/ph_person2_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>SECOND PERSON</div></div>
+        <div id="tpl-card"><div class="t1">THE COMPANY</div><div class="t2">under federal investigation</div><div class="t2">what it is accused of</div></div>
+        <div id="tpl-subject" class="tpl-pol"><img src="assets/photos/ph_portrait_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>THE SUBJECT</div></div>
+        <svg id="tpl-strings" viewBox="0 0 1920 1080">
+          <path d="M 900 216 Q 1150 240, 1495 156" fill="none" stroke="#b3121f" stroke-width="5" />
+          <path d="M 900 216 Q 600 300, 350 132" fill="none" stroke="#b3121f" stroke-width="5" />
+          <path d="M 900 216 Q 640 520, 380 616" fill="none" stroke="#b3121f" stroke-width="5" />
+          <path d="M 1495 156 Q 1560 420, 1535 696" fill="none" stroke="#b3121f" stroke-width="5" />
+        </svg>
+        <div class="tpl-pin" style="left: 900px; top: 216px"></div>
+        <div class="tpl-pin" style="left: 1495px; top: 156px"></div>
+        <div class="tpl-pin" style="left: 350px; top: 132px"></div>
+        <div class="tpl-pin" style="left: 380px; top: 616px"></div>
+        <div class="tpl-pin" style="left: 1535px; top: 696px"></div>
+        <svg id="tpl-marks" viewBox="0 0 1920 1080">
+          <path id="tpl-ring" d="M 905 160 C 700 160, 640 320, 650 470 C 660 680, 780 780, 920 772 C 1080 764, 1160 640, 1152 470 C 1144 290, 1060 168, 880 176" fill="none" stroke="#e8102a" stroke-width="11" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        </svg>
+        <div id="tpl-q">What really happened?</div>
+        <div id="tpl-dark" data-layout-allow-occlusion></div>
+      </div>
+    </div>
+    <div id="tpl-B">
+      <div id="tpl-vw1" class="tpl-vw"><video id="tpl-v1" class="clip tpl-vid" src="assets/clips/ph_keynote.mp4" data-start="5.6" data-duration="2.95" data-media-start="3.0" muted playsinline></video></div>
+    </div>
+    <div id="tpl-A">
+      <div id="tpl-t1" class="tpl-type"><span id="tpl-t1i" class="inner">There is no public evidence</span></div>
+      <div id="tpl-t2" class="tpl-type"><span id="tpl-t2i" class="inner">that the subject <span id="tpl-know">knowingly</span> did what is alleged.</span></div>
+      <svg id="tpl-uline" viewBox="0 0 1920 1080"><path id="tpl-ul" d="M 540 574 C 640 568, 740 576, 825 570" fill="none" stroke="#c8102e" stroke-width="8" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" /></svg>
+    </div>
+    <div id="tpl-black"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#tpl-black", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    // "There is no public evidence" 0.26 / "<what is not proven>" 1.79–4.69
+    tl.fromTo("#tpl-t1i", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.25, ease: "steps(27)" }, 0.26);
+    tl.fromTo("#tpl-t2i", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 2.6, ease: "steps(47)" }, 1.8);
+    tl.to("#tpl-ul", { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, 3.05);
+    tl.fromTo("#tpl-A", { scale: 1.0 }, { scale: 1.035, duration: 5.6, ease: "none" }, 0);
+    // "<what is at stake for them>" 5.74 — footage of the subject
+    tl.set("#tpl-A", { opacity: 0 }, 5.6);
+    tl.fromTo("#tpl-vw1", { scale: 1.0 }, { scale: 1.08, duration: 2.95, ease: "none" }, 5.6);
+    // "one question now hangs over everything" 8.57 — the whole board, every string leading to him
+    tl.set("#tpl-B", { opacity: 0 }, 8.55);
+    tl.fromTo("#tpl-cam", { scale: 1.2 }, { scale: 0.93, duration: 3.6, ease: "power2.out" }, 8.55);
+    tl.fromTo("#tpl-dark", { "--sr": "1400px" }, { "--sr": "1400px", duration: 0.01 }, 0);
+    tl.to("#tpl-dark", { "--sx": "1300px", "--sy": "900px", "--sr": "560px", duration: 2.6, ease: "power2.inOut" }, 9.0);
+    // "<the open question>" 11.85, "<its last word>" 12.43
+    tl.fromTo("#tpl-q", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: "power1.inOut" }, 12.31);
+    tl.to("#tpl-ring", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 12.81);
+    // the light closes on him, then black
+    tl.to("#tpl-dark", { "--sr": "420px", duration: 0.7, ease: "power2.in" }, 13.06);
+    tl.to("#tpl-black", { opacity: 1, duration: 0.3, ease: "power2.in" }, 13.5);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

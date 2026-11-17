@@ -1,0 +1,120 @@
+<template>
+  <style>
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    @font-face { font-family: "Marker"; src: url("assets/fonts/PermanentMarker-Regular.ttf"); }
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #050403; }
+    #tpl-cam { position: absolute; inset: 0; transform-origin: 960px 540px; }
+    #tpl-cork { position: absolute; left: -200px; top: -200px; width: 2320px; height: 1480px; background: url("assets/tex/cork.png") center / cover; }
+    .tpl-pol { position: absolute; background: #efe9dc; padding: 16px 16px 70px; box-shadow: 0 14px 26px rgba(0,0,0,0.55); }
+    .tpl-pol img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .tpl-cap { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-family: "Marker"; font-size: 34px; color: #1b1b1b; white-space: nowrap; }
+    .tpl-clip { position: absolute; box-shadow: 0 12px 22px rgba(0,0,0,0.5); }
+    .tpl-clip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    #tpl-clipping { left: 80px; top: 70px; width: 580px; height: 387px; }
+    #tpl-clipnote { position: absolute; left: 290px; top: 420px; background: #f2d300; padding: 10px 18px; font-family: "Marker"; font-size: 40px; color: #141210; box-shadow: 0 8px 14px rgba(0,0,0,0.45); white-space: nowrap; }
+    #tpl-subject { left: 730px; top: 110px; width: 360px; height: 430px; }
+    #tpl-person2 { left: 1200px; top: 90px; width: 380px; height: 470px; }
+    #tpl-event { left: 120px; top: 560px; width: 400px; height: 470px; }
+    #tpl-event2 { left: 570px; top: 650px; width: 540px; height: 370px; }
+    #tpl-card { position: absolute; left: 1180px; top: 630px; width: 640px; height: 400px; background: #f4efe2; box-shadow: 0 14px 26px rgba(0,0,0,0.55); padding: 34px 40px; background-image: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 47px, rgba(60,90,160,0.25) 47px 49px); }
+    #tpl-card .t1 { font-family: "Anton"; font-size: 72px; line-height: 1; color: #141210; letter-spacing: 1px; }
+    #tpl-card .t2 { font-family: "Elite"; font-size: 30px; line-height: 48px; color: #1d1a16; white-space: nowrap; }
+    #tpl-card .t3 { font-family: "Elite"; font-size: 30px; line-height: 48px; color: #1d1a16; white-space: nowrap; }
+    .tpl-hl { background-image: linear-gradient(#f2d300, #f2d300); background-repeat: no-repeat; background-position: 0 70%; background-size: 0% 70%; }
+    #tpl-stamp { position: absolute; left: 1440px; top: 880px; border: 7px solid #c8102e; border-radius: 10px; padding: 8px 18px 4px; font-family: "Anton"; font-size: 54px; line-height: 1.05; color: #c8102e; text-align: center; white-space: nowrap; mix-blend-mode: multiply; }
+    #tpl-strings { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    .tpl-pin { position: absolute; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff6b6b, #a30d1f 60%, #5a0610); box-shadow: 3px 6px 6px rgba(0,0,0,0.55); }
+    #tpl-person2label { position: absolute; left: 1310px; top: 572px; font-family: "Marker"; font-size: 30px; color: #f2e9d8; white-space: nowrap; }
+    #tpl-lens { position: absolute; left: 1232px; top: 112px; width: 260px; height: 260px; }
+    #tpl-glass { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; border: 12px solid #cfd2d6; box-shadow: 0 0 0 3px #6d7177, 0 18px 30px rgba(0,0,0,0.6), inset 0 0 30px rgba(255,255,255,0.35); }
+    #tpl-glass img { position: absolute; left: -145px; top: -138px; width: 626px; height: 774px; }
+    #tpl-handle { position: absolute; left: 214px; top: 214px; width: 44px; height: 190px; background: linear-gradient(90deg, #2a1d14, #5a4030, #2a1d14); border-radius: 14px; transform: rotate(-45deg); transform-origin: 22px 0; }
+    .tpl-light { position: absolute; left: -400px; top: -400px; width: 2720px; height: 1880px; --sx: 770px; --sy: 666px; --sr: 300px; pointer-events: none; }
+    #tpl-dark { background: radial-gradient(circle var(--sr) at var(--sx) var(--sy), rgba(8,6,3,0) 0%, rgba(8,6,3,0) 76%, rgba(8,6,3,0.94) 100%); }
+    #tpl-warm { background: radial-gradient(circle var(--sr) at var(--sx) var(--sy), rgba(255,196,120,0.30) 0%, rgba(255,196,120,0.10) 60%, rgba(255,196,120,0) 78%); mix-blend-mode: overlay; }
+    #tpl-livew { position: absolute; inset: 0; }
+    #tpl-live { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+    #tpl-livetag { position: absolute; left: 110px; top: 170px; background: #f2ecdf; padding: 10px 22px 6px; font-family: "Elite"; font-size: 30px; color: #141210; white-space: nowrap; }
+    #tpl-black { position: absolute; inset: 0; background: #000; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="tpl-cam">
+      <div id="tpl-cork"></div>
+      <div id="tpl-clipping" class="tpl-clip"><img src="assets/photos/ph_clipping_sepia.jpg" alt="" /></div>
+      <div id="tpl-clipnote">OUTLET · MAR 1</div>
+      <div id="tpl-event" class="tpl-pol"><img src="assets/photos/ph_event_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>reported photos</div></div>
+      <div id="tpl-event2" class="tpl-pol"><img src="assets/photos/ph_event_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>the event</div></div>
+      <div id="tpl-subject" class="tpl-pol"><img src="assets/photos/ph_portrait_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>THE SUBJECT</div></div>
+      <div id="tpl-person2" class="tpl-pol"><img id="tpl-person2img" src="assets/photos/ph_person2_sepia.jpg" alt="" /><div class="tpl-cap" data-layout-ignore>SECOND PERSON</div></div>
+      <div id="tpl-card">
+        <div class="t1">THE COMPANY</div>
+        <div class="t2">where it is based · their role</div>
+        <div id="tpl-line1" class="t3">what it is accused of doing, said</div>
+        <div id="tpl-line2" class="t3">as <span id="tpl-hl" class="tpl-hl">the reporting puts it</span></div>
+      </div>
+      <div id="tpl-stamp">UNDER FEDERAL<br />INVESTIGATION</div>
+      <svg id="tpl-strings" viewBox="0 0 1920 1080">
+        <path id="tpl-str1" d="M 910 128 Q 1150 175, 1390 106" fill="none" stroke="#b3121f" stroke-width="5" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        <path id="tpl-str2" d="M 1390 106 Q 1470 400, 1500 646" fill="none" stroke="#b3121f" stroke-width="5" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        <path id="tpl-str3" d="M 910 128 Q 600 380, 320 576" fill="none" stroke="#b3121f" stroke-width="5" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        <path id="tpl-str4" d="M 910 128 Q 880 420, 840 664" fill="none" stroke="#b3121f" stroke-width="5" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+      </svg>
+      <div class="tpl-pin" style="left: 370px; top: 82px"></div>
+      <div class="tpl-pin" style="left: 910px; top: 128px"></div>
+      <div class="tpl-pin" style="left: 1390px; top: 106px"></div>
+      <div class="tpl-pin" style="left: 320px; top: 576px"></div>
+      <div class="tpl-pin" style="left: 840px; top: 664px"></div>
+      <div id="tpl-cardpin" class="tpl-pin" style="left: 1500px; top: 646px"></div>
+      <div id="tpl-person2label">(alias)</div>
+      <div id="tpl-lens"><div id="tpl-handle"></div><div id="tpl-glass"><img src="assets/photos/ph_person2_sepia.jpg" alt="" /></div></div>
+      <div id="tpl-warm" class="tpl-light" data-layout-ignore></div>
+      <div id="tpl-dark" class="tpl-light" data-layout-allow-occlusion></div>
+    </div>
+    <div id="tpl-livew"><video id="tpl-live" class="clip" src="assets/clips/ph_footage_bw.mp4" data-start="1.55" data-duration="1.65" data-media-start="0.3" muted playsinline></video><div id="tpl-livetag" class="clip" data-start="1.6" data-duration="1.6">PLACE · REPORTED FOOTAGE</div></div>
+    <div id="tpl-black"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const L = ".tpl-light", C = "#tpl-cam";
+    // light switch: the board appears out of the dark on the turn ("But this ...")
+    tl.fromTo("#tpl-black", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.out" }, 0.05);
+    tl.fromTo("#tpl-livew", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    tl.fromTo(L, { "--sx": "770px", "--sy": "666px", "--sr": "330px" }, { "--sx": "770px", "--sy": "666px", "--sr": "360px", duration: 1.0, ease: "power1.out" }, 0);
+    tl.fromTo(C, { scale: 1.32, x: 778, y: 361 }, { scale: 1.22, x: 720, y: 334, duration: 1.0, ease: "power1.out" }, 0);
+    // "a different story surfaced" 1.05 — whip to the dinner photos, push into one, it comes alive
+    tl.to(C, { scale: 1.55, x: 186, y: -457, duration: 0.5, ease: "power3.inOut" }, 1.05);
+    tl.to(L, { "--sx": "1240px", "--sy": "1235px", "--sr": "460px", duration: 0.5, ease: "power3.inOut" }, 1.05);
+    tl.to(C, { scale: 1.75, x: 210, y: -516, duration: 0.5, ease: "power2.in" }, 1.55);
+    tl.to("#tpl-livew", { opacity: 1, duration: 0.18, ease: "power1.out" }, 1.6);
+    tl.fromTo("#tpl-livew", { scale: 1.12 }, { scale: 1.0, duration: 1.6, ease: "power2.out" }, 1.6);
+    tl.to("#tpl-livew", { opacity: 0, duration: 0.12, ease: "power1.in" }, 3.08);
+    // "<the second person is named>" 3.3 — snap back to his photo, follow the string to hers
+    tl.set(C, { scale: 1.35, x: 67, y: 290 }, 3.1);
+    tl.set(L, { "--sx": "1310px", "--sy": "725px", "--sr": "330px" }, 3.1);
+    tl.to("#tpl-str1", { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 3.3);
+    tl.to(C, { x: -580, duration: 0.6, ease: "power2.inOut" }, 3.35);
+    tl.to(L, { "--sx": "1790px", "--sy": "745px", "--sr": "370px", duration: 0.6, ease: "power2.inOut" }, 3.35);
+    tl.fromTo("#tpl-lens", { opacity: 0, x: 60, y: 60 }, { opacity: 1, x: 0, y: 0, duration: 0.7, ease: "power2.out" }, 3.95);
+    tl.fromTo("#tpl-person2label", { opacity: 0, clipPath: "inset(0 100% 0 0)", rotation: -2 }, { opacity: 1, clipPath: "inset(0 0% 0 0)", rotation: -2, duration: 0.45, ease: "power1.out" }, 4.4);
+    tl.to("#tpl-lens", { opacity: 0, scale: 0.9, duration: 0.25, ease: "power3.in" }, 5.55);
+    // "<their role>" 5.53, "<the company>" 6.65 — down the string to the card
+    tl.to("#tpl-str2", { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 5.7);
+    tl.to(C, { scale: 1.25, x: -675, y: -362, duration: 0.7, ease: "power2.inOut" }, 5.75);
+    tl.to(L, { "--sx": "1900px", "--sy": "1230px", "--sr": "400px", duration: 0.7, ease: "power2.inOut" }, 5.75);
+    tl.fromTo("#tpl-card", { opacity: 0, y: 30, rotation: 2.5 }, { opacity: 1, y: 0, rotation: 1.5, duration: 0.6, ease: "power2.out" }, 6.25);
+    tl.fromTo("#tpl-cardpin", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 6.62);
+    // "under federal investigation" 8.09 — rubber stamp
+    tl.fromTo("#tpl-stamp", { opacity: 0, scale: 1.08, rotation: -8 }, { opacity: 0.92, scale: 1, rotation: -8, duration: 0.1, ease: "power2.out" }, 8.15);
+    // "<what it is accused of, hedged>" 9.66–13.64
+    tl.to(C, { scale: 1.6, x: -864, y: -464, duration: 1.2, ease: "power2.inOut" }, 9.3);
+    tl.to("#tpl-stamp", { opacity: 0.35, duration: 0.6 }, 9.6);
+    tl.fromTo("#tpl-line1", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "steps(33)" }, 9.7);
+    tl.fromTo("#tpl-line2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.3, ease: "steps(24)" }, 11.25);
+    tl.fromTo("#tpl-hl", { backgroundSize: "0% 70%" }, { backgroundSize: "100% 70%", duration: 0.9, ease: "power1.inOut" }, 12.45);
+    tl.set(["#tpl-str3", "#tpl-str4"], { strokeDashoffset: 0 }, 0);
+    // exit: whip left
+    tl.to(C, { x: -3200, duration: 0.45, ease: "power3.in" }, 14.0);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

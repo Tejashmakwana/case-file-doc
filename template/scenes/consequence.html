@@ -1,0 +1,83 @@
+<template>
+  <style>
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #e8e2d4 url("assets/tex/newsprint.png") center / cover; }
+    #tpl-A { position: absolute; inset: 0; }
+    #tpl-card { position: absolute; left: 410px; top: -782px; width: 1100px; height: 1749px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); transform-origin: 550px 1322px; }
+    #tpl-card img { width: 100%; height: 100%; display: block; }
+    #tpl-ul { position: absolute; left: 0; top: 0; width: 1100px; height: 1749px; overflow: visible; }
+    #tpl-src { position: absolute; left: 90px; top: 165px; background: #151412; padding: 12px 24px 8px; }
+    #tpl-src div { font-family: "Elite"; font-size: 32px; color: #efe7d6; white-space: nowrap; }
+    #tpl-strip { position: absolute; left: -40px; top: 640px; width: 2000px; height: 300px; background: #ece6d8 url("assets/tex/newsprint.png") center / cover; box-shadow: 0 -10px 30px rgba(0,0,0,0.35); }
+    #tpl-indep { position: absolute; left: 110px; top: 652px; font-family: "Anton"; font-size: 70px; line-height: 1; color: #c8102e; letter-spacing: 3px; white-space: nowrap; }
+    #tpl-invest, .tpl-echo { position: absolute; left: 96px; top: 718px; font-family: "Anton"; font-size: 200px; line-height: 1; color: #141210; letter-spacing: -1px; white-space: nowrap; filter: url(#tpl-rough); }
+    #tpl-B { position: absolute; inset: 0; background: #0c0b0a; }
+    #tpl-photo { position: absolute; inset: 0; transform-origin: 72% 36%; }
+    #tpl-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #tpl-marks { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    #tpl-q { position: absolute; left: 90px; top: 690px; }
+    .tpl-echo { color: rgba(20,18,16,0.35); filter: blur(3px); }
+    #tpl-q .ql { display: block; background: #0f0e0d; padding: 10px 24px 4px; margin-bottom: 10px; width: max-content; }
+    #tpl-q span { display: inline-block; font-family: "Anton"; font-size: 92px; line-height: 1; color: #f6f1e6; white-space: nowrap; }
+    #tpl-q .red { color: #ff3b4e; }
+    #tpl-cut { position: absolute; inset: 0; background: #000; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <svg width="0" height="0" style="position: absolute"><filter id="tpl-rough"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="33" /><feDisplacementMap in="SourceGraphic" scale="7" /></filter></svg>
+    <div id="tpl-A">
+      <div id="tpl-card">
+        <img src="assets/photos/ph_document.jpg" alt="the primary document" />
+        <svg id="tpl-ul" viewBox="0 0 1206 1918" preserveAspectRatio="none">
+          <path id="tpl-u1" d="M 112 1468 C 400 1461, 800 1471, 1040 1463" fill="none" stroke="#ff2a3d" stroke-width="7" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+          <path id="tpl-u2" d="M 112 1521 C 200 1517, 260 1523, 330 1519" fill="none" stroke="#ff2a3d" stroke-width="7" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        </svg>
+      </div>
+      <div id="tpl-src"><div>FROM THE SUBJECT'S DOCUMENT · MAR 3</div></div>
+      <div id="tpl-strip"></div>
+      <div id="tpl-indep">INDEPENDENT</div>
+      <div id="tpl-e1" class="tpl-echo" data-layout-ignore>INVESTIGATION</div>
+      <div id="tpl-e2" class="tpl-echo" data-layout-ignore>INVESTIGATION</div>
+      <div id="tpl-invest">INVESTIGATION</div>
+    </div>
+    <div id="tpl-B">
+      <div id="tpl-photo"><img src="assets/photos/ph_portrait_bw.jpg" alt="" /></div>
+      <svg id="tpl-marks" viewBox="0 0 1920 1080">
+        <path id="tpl-circle" d="M 975 80 C 790 78, 700 230, 708 420 C 716 620, 830 760, 975 752 C 1140 744, 1238 600, 1230 410 C 1222 220, 1130 86, 950 96" fill="none" stroke="#e8102a" stroke-width="11" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+      </svg>
+      <div id="tpl-q">
+        <div class="ql"><span id="tpl-w1">THE&nbsp;</span><span id="tpl-w2" class="red">OPEN&nbsp;</span><span id="tpl-w3">QUESTION</span></div>
+        <div class="ql"><span id="tpl-w4">NOBODY&nbsp;</span><span id="tpl-w5">HAS&nbsp;</span><span id="tpl-w6">ANSWERED?</span></div>
+      </div>
+    </div>
+    <div id="tpl-cut"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#tpl-cut", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    // "<the consequence>" — the line in the subject's own document
+    tl.fromTo("#tpl-card", { scale: 0.92, rotation: -2, y: 160 }, { scale: 1.12, rotation: -1, y: 0, duration: 3.4, ease: "power2.out" }, 0);
+    tl.fromTo("#tpl-src", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 0.2);
+    tl.to("#tpl-u1", { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, 0.6);
+    tl.to("#tpl-u2", { strokeDashoffset: 0, duration: 0.3, ease: "power1.out" }, 1.5);
+    tl.fromTo("#tpl-strip", { y: 420 }, { y: 0, duration: 0.45, ease: "expo.out" }, 1.55);
+    tl.fromTo("#tpl-indep", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.3, ease: "power2.out" }, 1.7);
+    tl.fromTo("#tpl-e1", { opacity: 0, y: -150 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.in" }, 2.2);
+    tl.fromTo("#tpl-e2", { opacity: 0, y: 150 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.in" }, 2.2);
+    tl.set(["#tpl-e1", "#tpl-e2"], { opacity: 0 }, 2.56);
+    tl.fromTo("#tpl-invest", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    tl.set("#tpl-invest", { opacity: 1 }, 2.56);
+    // "<back to the subject>" 3.69 — cut to their portrait
+    tl.fromTo("#tpl-B", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    tl.set("#tpl-B", { opacity: 1 }, 3.66);
+    tl.set("#tpl-A", { opacity: 0 }, 3.7);
+    tl.fromTo("#tpl-photo", { scale: 1.0 }, { scale: 1.09, duration: 4.2, ease: "power1.inOut" }, 3.66);
+    // "<the question>" 5.3–7.33
+    tl.to("#tpl-circle", { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 5.55);
+    const pop = (sel, t) => tl.fromTo(sel, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out" }, t);
+    tl.fromTo(".ql", { opacity: 0 }, { opacity: 1, duration: 0.1 }, 5.3);
+    pop("#tpl-w1", 5.3); pop("#tpl-w2", 5.6); pop("#tpl-w3", 5.95); pop("#tpl-w4", 6.15); pop("#tpl-w5", 6.55); pop("#tpl-w6", 7.05);
+    tl.set("#tpl-cut", { opacity: 1 }, 7.8);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

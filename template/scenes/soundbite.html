@@ -1,0 +1,31 @@
+<template>
+  <style>
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0b0a09; }
+    #tpl-vw { position: absolute; inset: 0; transform-origin: 50% 40%; }
+    #tpl-v { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; }
+    #tpl-label { position: absolute; left: 90px; top: 168px; background: #f2ecdf; padding: 12px 24px 8px; box-shadow: 0 8px 18px rgba(0,0,0,0.45); }
+    #tpl-label div { font-family: "Elite"; font-size: 34px; color: #141210; white-space: nowrap; }
+    #tpl-via { position: absolute; left: 96px; top: 238px; font-family: "Elite"; font-size: 28px; color: #f2ecdf; white-space: nowrap; text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+    .tpl-cap { position: absolute; left: 0; right: 0; top: 700px; text-align: center; }
+    .tpl-cap span { display: inline-block; background: rgba(12,11,10,0.86); padding: 12px 28px 6px; font-family: "Elite"; font-size: 50px; color: #fbf6ea; white-space: nowrap; }
+    #tpl-dip { position: absolute; inset: 0; background: #000; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="tpl-vw"><video id="tpl-v" class="clip" src="assets/clips/ph_soundbite.mp4" data-start="0" data-duration="4.2" data-media-start="0" data-has-audio="true" data-volume="2.1" playsinline></video></div>
+    <div id="tpl-label"><div>SPEAKER NAME · MAR 3, 2026</div></div>
+    <div id="tpl-via">via BROADCASTER</div>
+    <div id="tpl-c1" class="tpl-cap clip" data-start="0.15" data-duration="1.7"><span>“The first phrase of the soundbite,”</span></div>
+    <div id="tpl-c2" class="tpl-cap clip" data-start="1.85" data-duration="2.35"><span>“and the second, exactly as said.”</span></div>
+    <div id="tpl-dip"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#tpl-dip", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    tl.fromTo("#tpl-vw", { scale: 1.0 }, { scale: 1.06, duration: 4.4, ease: "none" }, 0);
+    tl.fromTo("#tpl-label", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 0.05);
+    tl.fromTo("#tpl-via", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.3);
+    tl.to("#tpl-dip", { opacity: 1, duration: 0.2, ease: "power2.in" }, 4.18);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

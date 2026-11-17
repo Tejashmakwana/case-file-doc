@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      #grain { position: absolute; left: -256px; top: -256px; width: 2432px; height: 1592px; background: url("assets/tex/grain.png") repeat; mix-blend-mode: overlay; opacity: 0.18; pointer-events: none; z-index: 60; }
+      /* 2.39:1 cinema letterbox: picture lives between y=138 and y=942 */
+      .lb { position: absolute; left: 0; width: 1920px; height: 138px; background: #000; z-index: 90; }
+      #lb-top { top: 0; }
+      #lb-bot { bottom: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__DURATION__" data-width="1920" data-height="1080" data-motion-blur="on">
+      <!-- SCENES: `python3 tools/add-scene.py <template> <scene-id> <start> <duration>` writes one host line per beat
+           here. Each host starts ~0.1-0.4 s before the previous one ends and sits one z-index below it, so every
+           exit (dive, flip, tear, whip, dip) reveals the next scene. -->
+      <div id="grain" data-layout-ignore></div>
+      <div id="lb-top" class="lb" data-layout-ignore></div>
+      <div id="lb-bot" class="lb" data-layout-ignore></div>
+
+      <!-- AUDIO:BEGIN -->
+      <!-- AUDIO:END -->
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // film grain: seeded jumps every 2 frames so each frame is a pure function of time
+      let s = 0x5eed1234;
+      const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+      for (let t = 0; t < __DURATION__; t += 2 / 30) {
+        tl.set("#grain", { x: Math.round(rnd() * 256), y: Math.round(rnd() * 256) }, t);
+      }
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

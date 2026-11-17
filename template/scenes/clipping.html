@@ -1,0 +1,74 @@
+<template>
+  <style>
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    @font-face { font-family: "OldStd"; src: url("assets/fonts/OldStandard-Regular.ttf"); }
+    @font-face { font-family: "OldStd"; font-weight: 700; src: url("assets/fonts/OldStandard-Bold.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #1a1714; }
+    #tpl-stage { position: absolute; inset: 0; perspective: 2000px; perspective-origin: 50% 35%; }
+    #tpl-page { position: absolute; left: -60px; top: -40px; width: 2040px; height: 1300px; background: #ece7dc url("assets/tex/newsprint.png") center / cover; transform-origin: 1020px 560px; box-shadow: 0 40px 80px rgba(0,0,0,0.5); }
+    #tpl-head { position: absolute; left: 260px; top: 150px; width: 1520px; border-bottom: 3px solid #1d1a16; padding-bottom: 10px; }
+    #tpl-head .h1 { font-family: "OldStd"; font-weight: 700; font-size: 70px; letter-spacing: 4px; color: #1d1a16; white-space: nowrap; }
+    #tpl-head .h2 { font-family: "Elite"; font-size: 30px; color: #c8102e; letter-spacing: 1px; white-space: nowrap; margin-top: 4px; }
+    #tpl-body { position: absolute; left: 260px; top: 360px; }
+    #tpl-body .ln { font-family: "OldStd"; font-size: 60px; line-height: 96px; color: #1f1b16; white-space: nowrap; }
+    .tpl-hl { background-image: linear-gradient(#f2d300, #f2d300); background-repeat: no-repeat; background-position: 0 72%; background-size: 0% 62%; mix-blend-mode: multiply; padding: 0 4px; margin: 0 -4px; }
+    #tpl-marks { position: absolute; left: 0; top: 0; width: 2040px; height: 1300px; overflow: visible; }
+    #tpl-date { position: absolute; left: 90px; top: 160px; height: 170px; overflow: hidden; }
+    #tpl-roll { font-family: "Anton"; font-size: 150px; line-height: 170px; color: #c8102e; white-space: nowrap; }
+    #tpl-later { position: absolute; left: 96px; top: 330px; background: #151412; padding: 10px 22px 6px; }
+    #tpl-dofT, #tpl-dofB { position: absolute; left: 0; width: 1920px; pointer-events: none; -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }
+    #tpl-dofT { top: 0; height: 430px; -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 35%, transparent 100%); }
+    #tpl-dofB { top: 700px; height: 380px; -webkit-mask-image: linear-gradient(0deg, #000 0%, #000 40%, transparent 100%); mask-image: linear-gradient(0deg, #000 0%, #000 40%, transparent 100%); }
+    #tpl-later div { font-family: "Elite"; font-size: 34px; color: #efe7d6; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="tpl-stage">
+      <div id="tpl-page">
+        <div id="tpl-head"><div class="h1">THE SECOND OUTLET</div><div class="h2">BREAKING NEWS · MARCH 3, 2026</div></div>
+        <div id="tpl-body">
+          <div class="ln">The second report's exact published sentence starts here,</div>
+          <div class="ln">then <span id="tpl-hlA" class="tpl-hl">the phrase the narrator reads first</span></div>
+          <div class="ln"><span id="tpl-hlB" class="tpl-hl">and the phrase it all turns on, highlighted</span></div>
+          <div class="ln">and the line that ends the sentence, word for word.</div>
+        </div>
+        <svg id="tpl-marks" viewBox="0 0 2040 1300">
+          <path id="tpl-under" d="M 262 634 C 600 626, 1000 640, 1300 630 S 1640 636, 1730 628" fill="none" stroke="#c8102e" stroke-width="8" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        </svg>
+      </div>
+    </div>
+    <div id="tpl-dofT" data-layout-ignore></div>
+    <div id="tpl-dofB" data-layout-ignore></div>
+    <div id="tpl-date"><div id="tpl-roll">MAR 1<br />MAR 2<br />MAR 3</div></div>
+    <div id="tpl-later"><div>TWO DAYS LATER</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const P = "#tpl-page";
+    // "Two days later" 0.16 — the date rolls forward like a counter
+    tl.fromTo("#tpl-roll", { y: 0 }, { y: -340, duration: 0.6, ease: "power3.inOut" }, 0.2);
+    tl.fromTo("#tpl-later div", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "steps(14)" }, 0.25);
+    // "<according to the outlet>" 1.33 — page tilts in under the camera
+    tl.fromTo(P, { rotationX: 30, rotationZ: -6, scale: 1.0, x: 260, y: 520, opacity: 0 }, { rotationX: 16, rotationZ: -3, scale: 1.05, x: 120, y: 120, opacity: 1, duration: 0.8, ease: "expo.out" }, 1.15);
+    tl.to(P, { scale: 1.32, x: 80, y: -20, rotationX: 13, duration: 2.0, ease: "power2.inOut" }, 2.0);
+    // "<first highlighted phrase>" 2.8–4.7
+    tl.fromTo("#tpl-hlA", { backgroundSize: "0% 62%" }, { backgroundSize: "100% 62%", duration: 1.4, ease: "power1.inOut" }, 2.95);
+    tl.to(P, { y: -150, x: 60, duration: 1.6, ease: "power2.inOut" }, 4.1);
+    // "<second highlighted phrase>" 5.32–6.14
+    tl.fromTo("#tpl-hlB", { backgroundSize: "0% 62%" }, { backgroundSize: "100% 62%", duration: 1.0, ease: "power1.inOut" }, 5.2);
+    tl.to("#tpl-under", { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, 6.05);
+    tl.to(["#tpl-date", "#tpl-later"], { opacity: 0, duration: 0.2 }, 1.15);
+    // exit: torn away left-to-right
+    let seed = 0x3c9d;
+    const r = () => ((seed = (seed * 1103515245 + 12345) >>> 0) / 4294967296);
+    const jag = Array.from({ length: 31 }, () => (r() - 0.5) * 3.2);
+    const edge = (X) => {
+      const pts = ["100% 0%"];
+      for (let i = 0; i <= 30; i++) pts.push((X + jag[i] + Math.sin(i * 1.3) * 1.1).toFixed(2) + "% " + ((i / 30) * 100).toFixed(2) + "%");
+      pts.push("100% 100%");
+      return "polygon(" + pts.join(", ") + ")";
+    };
+    tl.fromTo("#root", { clipPath: edge(-12) }, { clipPath: edge(116), duration: 0.3, ease: "power3.in" }, 7.0);
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>

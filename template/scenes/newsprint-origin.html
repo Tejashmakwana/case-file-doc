@@ -1,0 +1,92 @@
+<template>
+  <style>
+    @font-face { font-family: "Anton"; src: url("assets/fonts/Anton-Regular.ttf"); }
+    @font-face { font-family: "Marker"; src: url("assets/fonts/PermanentMarker-Regular.ttf"); }
+    @font-face { font-family: "Elite"; src: url("assets/fonts/SpecialElite-Regular.ttf"); }
+    @font-face { font-family: "OldStd"; src: url("assets/fonts/OldStandard-Regular.ttf"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #e8e2d4 url("assets/tex/newsprint.png") center / cover; }
+    .tpl-cols { position: absolute; inset: 40px 50px; column-count: 6; column-gap: 34px; font-family: "OldStd"; font-size: 15px; line-height: 21px; color: rgba(20,18,16,0.16); text-align: justify; overflow: hidden; }
+    .tpl-big { position: absolute; font-family: "Anton"; color: #141210; line-height: 0.92; letter-spacing: -1px; white-space: nowrap; filter: url(#tpl-rough); }
+    #tpl-A { position: absolute; inset: 0; }
+    #tpl-subject { left: 110px; top: 160px; font-size: 230px; }
+    #tpl-name2 { left: 110px; top: 370px; font-size: 230px; }
+    #tpl-born { left: 120px; top: 600px; font-size: 100px; }
+    #tpl-sent { left: 120px; top: 725px; font-size: 100px; }
+    .tpl-bar { position: absolute; z-index: -1; transform-origin: 0 50%; }
+    .tpl-redbar { background: #c8102e; }
+    .tpl-yel { background: #f2d300; }
+    #tpl-placewrap { position: relative; display: inline-block; z-index: 0; color: #f4efe4; padding: 0 14px; }
+    #tpl-placebar { inset: 6px 0 2px 0; }
+    #tpl-numwrap { position: relative; display: inline-block; z-index: 0; padding: 0 16px; }
+    #tpl-numbar { inset: 6px 0 2px 0; }
+    #tpl-portrait { position: absolute; left: 1250px; top: 165px; width: 540px; height: 720px; background: #f6f2ea; padding: 16px; box-shadow: 0 18px 36px rgba(0,0,0,0.35); }
+    #tpl-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #tpl-B { position: absolute; inset: 0; background: #e8e2d4 url("assets/tex/newsprint.png") center / cover; box-shadow: -30px 0 60px rgba(0,0,0,0.45); backface-visibility: hidden; }
+    #tpl-stage { position: absolute; inset: 0; perspective: 2200px; }
+    #tpl-bigword { left: 80px; top: 165px; font-size: 255px; }
+    #tpl-bigword2 { left: 80px; top: 165px; font-size: 255px; color: #c8102e; }
+    #tpl-placewrap2 { position: absolute; left: 96px; top: 425px; padding: 6px 22px 0; }
+    #tpl-placeword { position: relative; font-family: "Anton"; font-size: 96px; line-height: 1.1; color: #141210; white-space: nowrap; }
+    #tpl-placebar2 { inset: 0; }
+    #tpl-person2 { position: absolute; left: 1250px; top: 240px; width: 500px; height: 640px; background: #f6f2ea; padding: 16px; box-shadow: 0 18px 36px rgba(0,0,0,0.35); }
+    #tpl-person2 img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #tpl-marks { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+    #tpl-person2label { position: absolute; left: 790px; top: 520px; font-family: "Marker"; font-size: 64px; color: #c8102e; white-space: nowrap; transform: rotate(-4deg); }
+    #tpl-type { position: absolute; left: 120px; top: 620px; font-family: "Elite"; font-size: 46px; line-height: 64px; color: #1d1a16; white-space: nowrap; }
+    #tpl-type div { display: inline-block; }
+  </style>
+  <div id="root" data-composition-id="tpl" data-width="1920" data-height="1080" data-layout-allow-overflow data-layout-allow-overlap>
+    <svg width="0" height="0" style="position: absolute">
+      <filter id="tpl-rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" /><feDisplacementMap in="SourceGraphic" scale="5" /></filter>
+    </svg>
+    <div class="tpl-cols" data-layout-ignore>This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type. This faint column holds the real background facts about the subject, set small as texture behind the type.</div>
+    <div id="tpl-A">
+      <div id="tpl-portrait"><img src="assets/photos/ph_portrait_bw.jpg" alt="" /></div>
+      <div id="tpl-subject" class="tpl-big">SUBJECT</div>
+      <div id="tpl-name2" class="tpl-big">NAME</div>
+      <div id="tpl-born" class="tpl-big">BORN IN <span id="tpl-placewrap"><span id="tpl-placebar" class="tpl-bar tpl-redbar"></span>PLACE</span></div>
+      <div id="tpl-sent" class="tpl-big">MOVED AWAY AT <span id="tpl-numwrap"><span id="tpl-numbar" class="tpl-bar tpl-yel"></span>9</span></div>
+    </div>
+    <div id="tpl-stage"><div id="tpl-B">
+      <div id="tpl-bigword" class="tpl-big">FIRST JOB</div>
+      <div id="tpl-bigword2" class="tpl-big">FIRST JOB</div>
+      <div id="tpl-placewrap2"><div id="tpl-placebar2" class="tpl-bar tpl-yel"></div><div id="tpl-placeword">AT THE PLACE</div></div>
+      <div id="tpl-type"><div id="tpl-type1">THE UNIVERSITY NAME</div><br /><div id="tpl-type2">THE DEPARTMENT</div></div>
+      <div id="tpl-person2"><img src="assets/photos/ph_person2_bw.jpg" alt="" /></div>
+      <svg id="tpl-marks" viewBox="0 0 1920 1080">
+        <path id="tpl-circle" d="M 1427 462 C 1346 462, 1326 538, 1331 584 C 1338 660, 1394 694, 1438 688 C 1508 680, 1528 610, 1522 556 C 1516 496, 1476 464, 1414 472" fill="none" stroke="#c8102e" stroke-width="10" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+        <path id="tpl-arrow" d="M 1225 568 C 1260 566, 1290 570, 1322 576 M 1290 556 L 1324 576 L 1288 596" fill="none" stroke="#c8102e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="110" />
+      </svg>
+      <div id="tpl-person2label">the person, named</div>
+    </div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // A — "<the name>" 0.37 (hard cut with the Ping Boom)
+    tl.fromTo("#tpl-portrait", { rotation: 2 }, { rotation: 2, duration: 0.01 }, 0);
+    tl.fromTo("#tpl-A", { scale: 1.0, transformOrigin: "50% 50%" }, { scale: 1.035, duration: 4.4, ease: "none" }, 0.36);
+    tl.fromTo(["#tpl-subject", "#tpl-name2"], { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+    // "<fact one>" 1.58
+    tl.fromTo("#tpl-born", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 1.5);
+    tl.fromTo("#tpl-placebar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 1.75);
+    // "<fact two>" 3.15, "<its number>" 4.05
+    tl.fromTo("#tpl-sent", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 3.1);
+    tl.fromTo("#tpl-numbar", { scaleX: 0 }, { scaleX: 1, duration: 0.22, ease: "power3.out" }, 4.0);
+    // B — new layout swings over: "<fact three>" 5.09
+    tl.fromTo("#tpl-B", { rotationY: -96, transformOrigin: "0% 50%" }, { rotationY: 0, transformOrigin: "0% 50%", duration: 0.5, ease: "power3.out" }, 4.68);
+    tl.fromTo("#tpl-bigword", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 5.05);
+    tl.fromTo("#tpl-bigword2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power2.inOut" }, 5.35);
+    tl.fromTo("#tpl-placebar2", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 5.9);
+    tl.fromTo("#tpl-placeword", { opacity: 0 }, { opacity: 1, duration: 0.1 }, 5.95);
+    // "<a person in their life>" 6.97, "<their name>" 7.65
+    tl.fromTo("#tpl-person2", { opacity: 0, y: 40, rotation: -2 }, { opacity: 1, y: 0, rotation: -2, duration: 0.7, ease: "power2.out" }, 6.8);
+    tl.to("#tpl-circle", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 7.6);
+    tl.to("#tpl-arrow", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 7.75);
+    tl.fromTo("#tpl-person2label", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power1.out" }, 7.65);
+    // "<a place>" 8.54 — typed
+    tl.fromTo("#tpl-type1", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.0, ease: "steps(19)" }, 8.55);
+    tl.fromTo("#tpl-type2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.65, ease: "steps(14)" }, 9.6);
+    // exit: the sheet is flicked up and away
+    window.__timelines["tpl"] = tl;
+  </script>
+</template>
